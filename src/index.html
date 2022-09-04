@@ -111,12 +111,15 @@
             // Bind the attribute/buffer set we want.
             gl.bindVertexArray(vao);
 
-            const resLoc = gl.getUniformLocation(program, "u_resolution");
-            gl.uniform2fv(resLoc, [window.innerWidth, window.innerHeight]);
+            const width = window.innerWidth * window.devicePixelRatio;
+            const height = window.innerHeight * window.devicePixelRatio;
 
-            canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight;
-			gl.viewport(0, 0, window.innerWidth, window.innerHeight);
+            const resLoc = gl.getUniformLocation(program, "u_resolution");
+            gl.uniform2fv(resLoc, [width, height]);
+
+            canvas.width = width;
+			canvas.height = height;
+			gl.viewport(0, 0, width, height);
 
             // draw 2 triangles
             gl.drawArrays(

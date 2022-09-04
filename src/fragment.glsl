@@ -1,10 +1,7 @@
 #version 300 es
- 
-// fragment shaders don't have a default precision so we need
-// to pick one. highp is a good default. It means "high precision"
+
 precision lowp float;
- 
-// we need to declare an output for the fragment shader
+
 out vec4 outColor;
 
 uniform vec2 u_resolution;
@@ -22,7 +19,15 @@ vec2 sphIntersect(in vec3 ro, in vec3 rd, float ra) {
 vec3 castRay(vec3 ro, vec3 rd) {
     vec2 it = sphIntersect(ro, rd, 1.0);
     if (it.x < 0.0) return vec3(0.0);
-    return vec3(1.0);
+
+    vec3 itPos = ro + rd * it.x;
+    vec3 n = itPos;
+    vec3 light = normalize(vec3(-0.5, 0.75, 1.0));
+    float diffuse = dot(light, n);
+
+    vec3 col = vec3(1.0, 0.2, 0.1);
+
+    return vec3(diffuse) * col;
 }
 
 void main() {
