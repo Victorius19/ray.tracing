@@ -1,0 +1,15 @@
+{
+  "name": "ray.tracing",
+  "version": "1.0.0",
+  "description": "Научно-исследовательская работа",
+  "main": "index.js",
+  "scripts": {
+    "start-test": "ws -s index.html -d src-old/",
+    "start": "ws -s index.html -d src/"
+  },
+  "author": "Victor Ivanov",
+  "license": "ISC",
+  "devDependencies": {
+    "local-web-server": "^5.2.1"
+  }
+}
