@@ -11,7 +11,15 @@ module.exports = {
     },
     devtool: 'inline-source-map',
     devServer: {
-        static: './dist',
+        static: [
+            {
+                directory: './dist/',
+            },
+            {
+                directory: './src/modules/glsl/',
+                publicPath: '/glsl',
+            },
+        ]
     },
     module: {
         rules: [
@@ -25,10 +33,23 @@ module.exports = {
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            importLoaders: 1,
+                        },
+                    },
+                ],
+            },
         ]
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.tsx', '.ts', '.js', '.css'],
     },
     plugins:[
         new HtmlWebpackPlugin({
