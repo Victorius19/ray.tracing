@@ -7,30 +7,8 @@ export default async function render(id: string) {
     return;
   }
 
-  const vs = `#version 300 es
-    // an attribute is an input (in) to a vertex shader.
-    // It will receive data from a buffer
-    in vec4 a_position;
-
-    // all shaders have a main function
-    void main() {
-
-      // gl_Position is a special variable a vertex shader
-      // is responsible for setting
-      gl_Position = a_position;
-    }
-  `;
-
-  const fs = `#version 300 es
-    precision highp float;
-
-    // we need to declare an output for the fragment shader
-    out vec4 outColor;
-
-    void main() {
-      outColor = vec4(1, 0, 0.5, 1); // return reddish-purple
-    }
-  `;
+  const vs = await (await fetch('glsl/vertex.glsl')).text();
+    const fs = await (await fetch('glsl/fragment.glsl')).text();
 
   // setup GLSL program
   const program = webglUtils.createProgramFromSources(gl, [vs, fs]);
@@ -75,14 +53,22 @@ export default async function render(id: string) {
 
   webglUtils.resizeCanvasToDisplaySize(gl.canvas);
 
-  // Tell WebGL how to convert from clip space to pixels
-  gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-
   // Tell it to use our program (pair of shaders)
   gl.useProgram(program);
 
   // Bind the attribute/buffer set we want.
   gl.bindVertexArray(vao);
+
+  const width = window.innerWidth * window.devicePixelRatio;
+    const height = window.innerHeight * window.devicePixelRatio;
+
+    const resLoc = gl.getUniformLocation(program, "u_resolution");
+    gl.uniform2fv(resLoc, [width, height]);
+
+    canvas.width = width;
+    canvas.height = height;
+    gl.viewport(0, 0, width, height);
+
 
   // draw 2 triangles
   gl.drawArrays(
