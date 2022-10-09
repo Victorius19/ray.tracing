@@ -62,8 +62,8 @@ export default async function render(id: string) {
   const width = window.innerWidth * window.devicePixelRatio;
     const height = window.innerHeight * window.devicePixelRatio;
 
-    const resLoc = gl.getUniformLocation(program, "u_resolution");
-    gl.uniform2fv(resLoc, [width, height]);
+    // const resLoc = gl.getUniformLocation(program, "u_resolution");
+    // gl.uniform2fv(resLoc, [width, height]);
 
     canvas.width = width;
     canvas.height = height;

@@ -4,7 +4,7 @@ precision highp float;
 
 out vec4 outColor;
 
-uniform vec2 u_resolution;
+vec2 u_resolution = vec2(1920, 1080);
 
 uvec4 R_STATE;
 vec2 u_seed1 = vec2(0.343, 0.943);
