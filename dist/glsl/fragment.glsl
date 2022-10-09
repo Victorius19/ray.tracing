@@ -108,7 +108,7 @@ vec4 castRay(inout vec3 ro, inout vec3 rd) {
         }
     }
 
-    mat2x4 box[6];
+    mat2x4 box[7];
     float boxDist = 10.0;
     float boxSize = boxDist / 2.0;
     float boxReflect = 0.0;
