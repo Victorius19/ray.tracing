@@ -7,7 +7,7 @@ const Canvas: React.FC = () => {
 
     React.useEffect(() => {
         render(id);
-    });
+    }, []);
 
     return (
         <canvas id={id} className={styles.main}></canvas>
